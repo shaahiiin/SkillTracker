@@ -119,8 +119,9 @@ public class MainActivity extends AppCompatActivity {
         int lastItemPosition = sharedPreferences.getInt("lastRunningItem", -1);  // save last used skill - position
         if (lastItemPosition != -1) {   //TODO - remove check on isrunning here if psbl
             Skill item = skillList.get(lastItemPosition);
-            Toast.makeText(this, String.valueOf((System.currentTimeMillis() - item.getPrevTime()) /
-                    60000) + " minutes passed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You spent " + String.valueOf((System.currentTimeMillis()
+                    - item.getPrevTime()) / 60000) +
+                    " minutes on " + item.getSkillName(), Toast.LENGTH_SHORT).show();
             item.setTimeSpent(item.getTimeSpent() + (System.currentTimeMillis() - item.getPrevTime()) / 1000);
             return item;
         }
