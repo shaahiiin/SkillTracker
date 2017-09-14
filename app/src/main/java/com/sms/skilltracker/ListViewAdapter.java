@@ -71,7 +71,7 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
 
-        btnDelete.setFocusable(true);   //TODO - try putting this in main activity
+        btnDelete.setFocusable(true);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +87,8 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     // Delete item Dialog builder
-    public AlertDialog.Builder getAlertDialogDelete(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.context)
+    AlertDialog.Builder getAlertDialogDelete(final int position) {
+        return new AlertDialog.Builder(this.context)
                 .setMessage("Are you sure you want to delete this skill?")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
@@ -115,6 +115,5 @@ public class ListViewAdapter extends BaseAdapter {
                         dialog.cancel();
                     }
                 });
-        return builder;
     }
 }

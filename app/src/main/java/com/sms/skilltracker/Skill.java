@@ -11,7 +11,7 @@ public class Skill {
     private boolean isRunning;
     private String dateCreated;
 
-    public Skill(String skillName, String dateCreated){
+    public Skill(String skillName, String dateCreated) {
         this.skillName = skillName;
         this.timeSpent = 0;
         this.prevTime = 0;
@@ -20,7 +20,7 @@ public class Skill {
     }
 
     // unpacks the packed string and constructs the Skill object
-    public Skill(String val){
+    public Skill(String val) {
         String[] values = val.split("\\|");
         this.skillName = values[0];
         this.timeSpent = Long.parseLong(values[1]);
@@ -51,23 +51,26 @@ public class Skill {
         }
     };
 
-    public String getSkillName(){
+    public String getSkillName() {
         return skillName;
     }
-    public void setSkillName(String skillName){
+
+    public void setSkillName(String skillName) {
         this.skillName = skillName;
     }
 
-    public long getTimeSpent(){
+    public long getTimeSpent() {
         return timeSpent;
     }
-    public void setTimeSpent(long timeSpent){
+
+    public void setTimeSpent(long timeSpent) {
         this.timeSpent = timeSpent;
     }
 
     public long getPrevTime() {
         return prevTime;
     }
+
     public void setPrevTime(long prevTime) {
         this.prevTime = prevTime;
     }
@@ -75,18 +78,20 @@ public class Skill {
     public boolean isRunning() {
         return isRunning;
     }
+
     public void setRunning(boolean running) {
         isRunning = running;
     }
 
-    public String getDateCreated(){
+    public String getDateCreated() {
         return this.dateCreated;
     }
 
-    public void startTimer(){
+    public void startTimer() {
         timer.start();
         this.setRunning(true);
     }
+
     public void stopTimer() {
         timer.cancel();
         this.setRunning(false);
@@ -97,10 +102,10 @@ public class Skill {
 
         return
                 "skillName : '" + skillName + '\'' +
-                ", timeSpent(in sec) : " + timeSpent +
-                ", prevTime(systime) : " + prevTime +
-                ", isRunning : " + isRunning
-              ;
+                        ", timeSpent(in sec) : " + timeSpent +
+                        ", prevTime(systime) : " + prevTime +
+                        ", isRunning : " + isRunning
+                ;
     }
 
 }
