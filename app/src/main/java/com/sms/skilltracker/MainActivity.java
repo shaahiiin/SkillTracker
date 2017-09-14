@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     static SharedPreferences sharedPreferences;
     ArrayList<Skill> skillList = new ArrayList<>();
     static ListViewAdapter listViewAdapter; // this is static so that we can update listView on
-                                            // every tick (from the skill object)
+    // every tick (from the skill object)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setAlpha(0.35f);
 
         skillList = new ArrayList<>();
-        
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
     }
 
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         listViewAdapter.notifyDataSetChanged();
 
         Skill item = updateTimer();
-        if(item != null)
+        if (item != null)
             item.startTimer();
     }
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         // stop timer if any item was running
         int lastItem = sharedPreferences.getInt("lastRunningItem", -1);
-        if(lastItem != -1){
+        if (lastItem != -1) {
             skillList.get(lastItem).stopTimer();
         }
         // save list
@@ -203,12 +203,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Add new Skill item
-                String inString = inp.getText().toString();
+                String inString = inp.getText().toString().trim();
 
-                // name shouldn't contain "|" and shoudn't be empty string
-                if(inString == "" || inString.contains("|")){
-                    Toast.makeText(context, "Invalid Name", Toast.LENGTH_SHORT);
+                // name shouldn't contain "|" and shouldn't be empty string
+                if (inString.equals("") || inString.contains("|")) {
+                    Toast.makeText(context, "Invalid Name", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
+                    return;
                 }
 
                 String defaultHoursString = defaultHours.getText().toString();
