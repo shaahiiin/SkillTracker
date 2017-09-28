@@ -60,7 +60,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         // set the values of the list item
         skill.setText(item.getSkillName());
-        time.setText(UtilClass.timeFormat(item.getTimeSpent()));
+        time.setText(UtilClass.timeFormat(item.getTimeSpent())); // + item.getSessionTime()
         dateCreated.setText(item.getDateCreated());
 
         // onclick change background color

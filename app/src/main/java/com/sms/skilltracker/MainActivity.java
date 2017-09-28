@@ -3,11 +3,14 @@ package com.sms.skilltracker;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -103,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-
     // called onResume() - get saved data and populate the ArrayList
     void getData() {
         int n = sharedPreferences.getInt("size", 0);
@@ -119,10 +121,24 @@ public class MainActivity extends AppCompatActivity {
         int lastItemPosition = sharedPreferences.getInt("lastRunningItem", -1);  // save last used skill - position
         if (lastItemPosition != -1) {   //TODO - remove check on isrunning here if psbl
             Skill item = skillList.get(lastItemPosition);
-            Toast.makeText(this, "You spent " + String.valueOf((System.currentTimeMillis()
-                    - item.getPrevTime()) / 60000) +
-                    " minutes on " + item.getSkillName(), Toast.LENGTH_SHORT).show();
-            item.setTimeSpent(item.getTimeSpent() + (System.currentTimeMillis() - item.getPrevTime()) / 1000);
+            long prevTime = sharedPreferences.getLong("prevTime", Long.MIN_VALUE);
+            if(prevTime == Long.MIN_VALUE){
+                Log.e("SharedPreferences", "prevTime not found in shared preferences");
+                return null;
+            }
+
+            Snackbar.make(findViewById(android.R.id.content), "You spent " + String.valueOf((System.currentTimeMillis()
+                - prevTime) / 60000) + " minutes on " + item.getSkillName(), Snackbar.LENGTH_SHORT)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Snackbar.make(findViewById(android.R.id.content), "User delete",
+                                Snackbar.LENGTH_SHORT).show();
+                    }
+                })
+                .setActionTextColor(Color.GRAY)
+                .show();
+            item.setTimeSpent(item.getTimeSpent() + (System.currentTimeMillis() - prevTime) / 1000); // + item.getSessionTime()
             return item;
         }
         return null;

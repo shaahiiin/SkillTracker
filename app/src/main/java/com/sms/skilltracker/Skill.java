@@ -1,13 +1,14 @@
 package com.sms.skilltracker;
 
 
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.util.Log;
 
 public class Skill {
     private String skillName;
     private long timeSpent; // time spent in seconds
-    private long prevTime;  // previous time - stores System.currentTimeInMillis() on each tick
+    private long prevTime;  // deprecated and replaced by sharedPreferences value of same name
     private boolean isRunning;
     private String dateCreated;
 
@@ -34,13 +35,13 @@ public class Skill {
         public void onTick(long millisUntilFinished) {
             // increment timer
             setTimeSpent(getTimeSpent() + 1);
-            Log.d("Time spent on " + getSkillName(), UtilClass.timeFormat(getTimeSpent()));
+            // setSessionTime(getSessionTime() + 1);
+            Log.d("Time spent on " + getSkillName(), UtilClass.timeFormat(getTimeSpent())); // getSessionTime()
 
             // this saves information of last tick - to load on next start
-            setPrevTime(System.currentTimeMillis());
-//            MainActivity.sharedPreferences.edit().putLong("prevTime", System.currentTimeMillis());
-//            MainActivity.sharedPreferences.edit().apply();
-
+            MainActivity.sharedPreferences.edit().putLong("prevTime",
+                    System.currentTimeMillis()).apply();
+            // save session time instead of "prevTime"
             MainActivity.listViewAdapter.notifyDataSetChanged();
 
         }

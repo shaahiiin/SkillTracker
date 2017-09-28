@@ -2,7 +2,7 @@ package com.sms.skilltracker;
 
 
 public final class UtilClass {
-    //    convert time format : seconds(long) ---> hh:mm:ss (String)
+//    convert time format : seconds(long) ---> hh:mm:ss (String)
 //    if required we can split this string to get the individual parts
     public static String timeFormat(long seconds) {
 
